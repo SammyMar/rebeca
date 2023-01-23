@@ -5,6 +5,7 @@ library(dplyr)
 library(esquisse)
 library(ggplot2)
 
+
 ########## importacao ###############
 
 REBECA <- read_excel("dados/Correção DASS-21 (arquivo das salas) - REBECA.xlsx")
@@ -80,11 +81,35 @@ df3$Período <- df3$Período |>
 df3$Cor <- df3$Cor |>
   stringr::str_to_upper() |>
   gsub(pattern = '.{1}$', replacement = 'O')
-df3[,c('1° Curso',"Deficiência",'Trabalho',"Mudança p/ vix",)] <- df3$`1° Curso` |>
-  stringr::str_to_upper()
-df3 |> esquisser()
-df3$`Mudança p/ vix`
+
+df3 <- data.frame(lapply(df3, function(v) {
+  if (is.character(v)) return(toupper(v))
+  else return(v)
+})) |> as_tibble()
+
+df3$Quantidade <-  df3$Quantidade |>
+  gsub(pattern = 'MODERADAMENTE',replacement ='MODERADO')
+
+df3 <- df3 |>
+  filter(!if_all(everything(), ~  is.na(.)))
+df <- data.frame(Name=c('John Smith', 'John Smith', 'Jeff Smith'),
+                 State=c('MI','WI','WI'), stringsAsFactors=F)
+df3 <- within(df3, {
+  Frequência[is.na(Frequência) == T & Alcool.drogas == 'NÃO'] <- 'NUNCA'
+  Quantidade[is.na(Quantidade) == T & Frequência == 'NUNCA'] <- 'NENHUM'
+  Cargo.de.Ocupação[Trabalho == 'NÃO'] <- 'DESEMPREGADO'
+  })
+df3$NA.count <-rowSums(is.na(df3))
+df3 <- cbind(ID = 1:nrow(df3),df3) |> as_tibble()
+
+#DETECTAR IMPLAUSIBILIDADES E INCONSISTENCIAS
 
 
-
-
+implau <- df3 |>
+  filter(Idade < 18 | Idade > 50)
+implau <- rbind(df3 |>
+  filter(Alcool.drogas == 'NÃO') |>
+  filter(Frequência != 'NUNCA'), implau)
+incom <-
+df3 |>
+  filter(is.na(Depressão) == T | is.na(Ansiedade) == T| is.na(Estresse) == T)
