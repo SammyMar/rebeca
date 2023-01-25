@@ -1,0 +1,157 @@
+> bayesreg b
+
+> dataset d
+
+> d.infile using C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim.data.raw
+
+NOTE: 5 variables with 311 observations read from file
+C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim.data.raw
+
+> b.outfile = C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim
+
+> b.regress y = idade + directionx1 + directionx2, family=quantreg iterations=2000 burnin=1000 step=1 setseed=528512079 quantile=0.1 predict using d
+
+
+
+BAYESREG OBJECT b: regression procedure
+
+GENERAL OPTIONS:
+
+  Number of iterations:  2000
+  Burn-in period:        1000
+  Thinning parameter:    1
+
+
+RESPONSE DISTRIBUTION:
+
+  Family: Gaussian
+  Number of observations: 311
+  Number of observations with positive weights: 311
+  Response function: identity
+  Hyperparameter a: 0.001
+  Hyperparameter b: 0.001
+
+
+OPTIONS FOR ESTIMATION:
+
+  OPTIONS FOR FIXED EFFECTS: FixedEffects1
+
+  Priors: diffuse priors
+
+
+MCMC SIMULATION STARTED
+
+
+
+Computing starting values (may take some time)
+
+  ITERATION: 1
+
+  APPROXIMATE RUN TIME: 0 seconds
+
+  ITERATION: 1000
+  ITERATION: 2000
+
+  FixedEffects1
+
+  Acceptance rate:    99.95 %
+
+  Relative Changes in  
+
+  Mean:               0.0164072
+  Variance:           1.79769e+308
+  Minimum:            0.0973036
+  Maximum:            0.130898
+
+
+
+  FixedEffects1
+
+
+  Acceptance rate:    99.95 %
+
+
+SIMULATION TERMINATED
+
+SIMULATION RUN TIME: 0 seconds
+
+
+ESTIMATION RESULTS:
+
+  Predicted values:
+
+  Estimated mean of predictors, expectation of response and
+  individual deviances are stored in file
+  C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_predictmean.raw
+
+  Estimation results for the deviance: 
+
+  Mean:             0
+  Std. Dev:         0
+  2.5% Quantile:    0
+  10% Quantile:     0
+  50% Quantile:     0
+  90% Quantile:     0
+  97.5% Quantile:   0
+
+  Samples of the deviance are stored in file
+  C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_deviance_sample.raw
+
+  Estimation results for the DIC: 
+
+  Deviance(bar_mu):           2.775399e-309
+  pD:                         -2.775399e-309
+  DIC:                        -2.775399e-309
+
+  Estimation results for the scale parameter:
+
+  Acceptance rate:   100 %
+
+  Mean:             37.3499
+  Std. dev.:        2.46658
+  2.5% Quantile:    32.9523
+  10% Quantile:     34.2133
+  50% Quantile:     37.201
+  90% Quantile:     40.6549
+  97.5% Quantile:   42.9423
+
+
+
+  FixedEffects1
+
+
+  Acceptance rate:    100 %
+
+
+  Variable     mean           Std. Dev.      2.5% quant.    median         97.5% quant.   
+    const        -59.4514       2.40615        -64.2725       -59.3602       -55.1427       
+    idade        0.396715       0.0886367      0.244383       0.389223       0.580567       
+    directionx1  -0.0980748     0.126242       -0.344163      -0.100919      0.150802       
+    directionx2  -0.00910886    0.127515       -0.269563      -0.00487879    0.227659       
+
+  Results for fixed effects are also stored in file
+  C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_FixedEffects1.res
+
+  Files of model summary: 
+
+  --------------------------------------------------------------------------- 
+
+  Latex file of model summaries is stored in file 
+  C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_model_summary.tex
+
+  --------------------------------------------------------------------------- 
+
+> b.getsample
+
+Storing sampled parameters...
+Sampled parameters are stored in file(s):
+
+C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_FixedEffects1_sample.raw
+
+C:/Users/R2/Documents/rebeca/resultados/dir_1_tau_0.1//bayesx.estim_scale_sample.raw
+
+
+Storing completed
+
+> logclose
+

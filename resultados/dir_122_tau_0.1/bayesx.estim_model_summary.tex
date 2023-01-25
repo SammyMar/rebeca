@@ -1,0 +1,102 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{graphicx}
+\parindent0em
+
+\begin{document}
+\begin{center}
+\LARGE{\bf BAYESREG OBJECT b: regression procedure}
+\end{center} 
+\vspace{1cm}
+
+\noindent {\bf \large Response:}
+\begin{tabbing}
+Number of observations: \= 311\\
+Response Variable: \> y\\
+Family: \> Gaussian\\
+\end{tabbing}
+
+\noindent {\bf \large Predictor:}\\
+
+
+\begin{tabular}{ccp{12cm}}
+$\eta$ & $=$ & $\gamma_{const}const + \gamma_{idade}idade + \gamma_{directionx1}directionx1 + \gamma_{directionx2}directionx2$
+\end{tabular}
+\\ 
+\\
+
+\noindent {\bf \large Priors:}\\
+\\
+Fixed effects:\\
+diffuse priors\\
+\\\\
+
+\noindent {\bf \large MCMC Options:}
+\begin{tabbing}
+Levels for credible intervals: \= \\
+Level 1: \> 95\\
+Level 2: \> 80\\
+Number of Iterations: \> 2000\\
+Burn in: \> 1000\\
+Thinning Parameter: \> 1
+\end{tabbing}
+\vspace{0.5cm}
+
+ {\bf \large Estimation results for the deviance: }\\ 
+
+{\bf Deviance } 
+
+\vspace{-0.4cm}
+\begin{tabbing}
+\hspace{3cm} \= \\
+  Mean:           \> 0 \\
+  Std. Dev:       \> 0 \\
+  2.5\% Quantile:  \> 0 \\
+  10\% Quantile:  \> 0 \\
+  50\% Quantile:  \> 0 \\
+  90\% Quantile:  \> 0 \\
+  97.5\% Quantile:  \> 0 \\
+\end{tabbing}
+
+
+ {\bf \large Estimation results for the DIC: }\\ 
+
+\begin{tabbing}
+\hspace{3cm} \= \\
+deviance \> 4.8489379e-309 \\
+pD  \> -4.8489379e-309 \\
+DIC  \> -4.8489379e-309 \\
+\end{tabbing}
+
+
+ {\bf \large Estimation results for the scale parameter: }\\ 
+
+\vspace{-0.4cm}
+\begin{tabbing}
+\hspace{3cm} \= \\
+Mean  \> 19.2593 \\
+Std. dev.:  \> 1.42824 \\
+  2.5\% Quantile:  \>16.7698 \\
+  10\% Quantile:  \>17.4741 \\
+  50\% Quantile:  \>19.176 \\
+  90\% Quantile:  \>21.2038 \\
+  97.5\% Quantile:  \>22.4238 \\
+\end{tabbing}
+
+
+\newpage 
+
+
+\noindent {\bf \large Fixed Effects:}\\
+\\
+\begin{tabular}{|r|rrrrr|}
+\hline
+Variable & Mean & STD & 2.5\%-Quant. & Median & 97.5\%-Quant.\\
+\hline
+const & 14.5865 & 1.77295 & 11.365 & 14.4783 & 18.21\\
+idade & -0.305851 & 0.0570655 & -0.426129 & -0.300949 & -0.204443\\
+directionx1 & 0.0535809 & 0.0430047 & -0.0298005 & 0.054774 & 0.137594\\
+directionx2 & 0.0328011 & 0.0455356 & -0.0687165 & 0.0359526 & 0.114871\\
+\hline 
+\end{tabular}
+\end{document}

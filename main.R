@@ -4,8 +4,9 @@ library(readxl)
 library(dplyr)
 library(esquisse)
 library(ggplot2)
+library(devtools)
 
-
+install_github('brsantos/baquantreg')
 ########## importacao ###############
 
 REBECA <- read_excel("dados/Correção DASS-21 (arquivo das salas) - REBECA.xlsx")
@@ -111,9 +112,21 @@ implau <- rbind(df3 |>
   filter(Alcool.drogas == 'NÃO') |>
   filter(Frequência != 'NUNCA'), implau)
 incom <-
-df3 |>
+df3 |> View()
   filter(is.na(Depressão) == T | is.na(Ansiedade) == T| is.na(Estresse) == T)
 na_count <-sapply(df3, function(y) sum(length(which(is.na(y))))) |> as.data.frame()
 nrow(df3)
 df3 |> dplyr::filter(is.na(Cor)) |> ggplot() + aes(Gênero) + geom_bar()
-df3 |> ggplot(aes(Gênero,fill = Cor)) + geom_bar()
+df3 |> ggplot(aes(Turno)) + geom_bar()
+
+######################################################
+
+pkgbuild::check_build_tools(debug = TRUE)
+install.packages('Rcpp')
+
+
+df5$ansiedade |> hist()
+df5$depressao |> hist()
+df5$estresse |> hist()
+cor(df5[,c('ansiedade','depressao','estresse')])
+kmeans(df5[,c('ansiedade','depressao','estresse')], 5)
