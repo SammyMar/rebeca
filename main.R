@@ -113,3 +113,7 @@ implau <- rbind(df3 |>
 incom <-
 df3 |>
   filter(is.na(Depressão) == T | is.na(Ansiedade) == T| is.na(Estresse) == T)
+na_count <-sapply(df3, function(y) sum(length(which(is.na(y))))) |> as.data.frame()
+nrow(df3)
+df3 |> dplyr::filter(is.na(Cor)) |> ggplot() + aes(Gênero) + geom_bar()
+df3 |> ggplot(aes(Gênero,fill = Cor)) + geom_bar()
