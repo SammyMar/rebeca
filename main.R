@@ -111,22 +111,21 @@ implau <- df3 |>
 implau <- rbind(df3 |>
   filter(Alcool.drogas == 'NÃO') |>
   filter(Frequência != 'NUNCA'), implau)
-incom <-
-df3 |> View()
+incom <- df3 |>
   filter(is.na(Depressão) == T | is.na(Ansiedade) == T| is.na(Estresse) == T)
-na_count <-sapply(df3, function(y) sum(length(which(is.na(y))))) |> as.data.frame()
-nrow(df3)
+
 df3 |> dplyr::filter(is.na(Cor)) |> ggplot() + aes(Gênero) + geom_bar()
 df3 |> ggplot(aes(Turno)) + geom_bar()
+df3 |> skimr::skim()
+  df3 <- janitor::clean_names(df3)
+##################### RESOLUCAO NA'S ##############################
+df3 <- df3 |>
+  filter(!is.na(df3$Depressão))
+df3 |>
+  filter(is.na(mudanca_p_vix))
 
-######################################################
-
-pkgbuild::check_build_tools(debug = TRUE)
-install.packages('Rcpp')
 
 
-df5$ansiedade |> hist()
-df5$depressao |> hist()
-df5$estresse |> hist()
-cor(df5[,c('ansiedade','depressao','estresse')])
-kmeans(df5[,c('ansiedade','depressao','estresse')], 5)
+# pkgbuild::check_build_tools(debug = TRUE)
+# install.packages('Rcpp')
+
