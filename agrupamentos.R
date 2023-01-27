@@ -85,18 +85,27 @@ df.agrup.completo <- pam3 |>
   rename_at(vars(starts_with('.')), funs(paste0('pam5')))
 df.agrup.completo$clara3 <- clara1$clustering
 df.agrup.completo$clara5 <- clara2$clustering
-
+df.agrup.completo$kmedias5 <- k_medias1$cluster
 df.agrup.completo |>
   group_by(kmedias5) |>
   summarise_at(vars('depressao','ansiedade','estresse'),mean)
 df.agrup.completo |>
-  filter(kmedias5 == 1) |> ggplot()+
-  aes(quantidade) +
+  filter(kmedias5 == 4) |> ggplot()+
+  aes(cor) +
   geom_bar()
 par(mfrow = c(3,2))
 
 df.agrup.completo |> ggplot()+
-    aes(quantidade) +
-    geom_bar() + facet_wrap(~k_medias5)
+    aes(anivel) +
+    geom_bar() #+ facet_wrap(vars(kmedias5))
+df.agrup.completo |> colnames()
+install.packages('esquisser')
 df.agrup.completo |> esquisse::esquisser()
 
+library(ggplot2)
+df.agrup.completo |> colnames()
+ggplot(df.agrup.completo) +
+ aes(x = trabalho) +
+ geom_bar(fill = "#112446") +
+ theme_minimal() +
+ facet_wrap(vars(dnivel))

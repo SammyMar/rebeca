@@ -1,12 +1,16 @@
 ########## bibliotecas ##############
-
+install.packages('readxl')
+install.packages('ggplot2')
+install.packages('devtools')
 library(readxl)
 library(dplyr)
-library(esquisse)
+
+#library(esquisse)
+
 library(ggplot2)
 library(devtools)
 
-install_github('brsantos/baquantreg')
+#install_github('brsantos/baquantreg')
 ########## importacao ###############
 
 REBECA <- read_excel("dados/Correção DASS-21 (arquivo das salas) - REBECA.xlsx")
@@ -111,16 +115,19 @@ implau <- df3 |>
 implau <- rbind(df3 |>
   filter(Alcool.drogas == 'NÃO') |>
   filter(Frequência != 'NUNCA'), implau)
+implau |> View()
 incom <- df3 |>
   filter(is.na(Depressão) == T | is.na(Ansiedade) == T| is.na(Estresse) == T)
 
 df3 |> dplyr::filter(is.na(Cor)) |> ggplot() + aes(Gênero) + geom_bar()
 df3 |> ggplot(aes(Turno)) + geom_bar()
 df3 |> skimr::skim()
-  df3 <- janitor::clean_names(df3)
+install.packages('janitor')
+install.packages('skimr')
+df3 <- janitor::clean_names(df3)
 ##################### RESOLUCAO NA'S ##############################
 df3 <- df3 |>
-  filter(!is.na(df3$Depressão))
+  filter(!is.na(df3$depressao))
 df3 |>
   filter(is.na(mudanca_p_vix))
 
