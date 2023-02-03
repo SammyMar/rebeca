@@ -1,7 +1,7 @@
 ########## bibliotecas ##############
-install.packages('readxl')
-install.packages('ggplot2')
-install.packages('devtools')
+# install.packages('readxl')
+# install.packages('ggplot2')
+# install.packages('devtools')
 library(readxl)
 library(dplyr)
 
@@ -122,8 +122,8 @@ incom <- df3 |>
 df3 |> dplyr::filter(is.na(Cor)) |> ggplot() + aes(Gênero) + geom_bar()
 df3 |> ggplot(aes(Turno)) + geom_bar()
 df3 |> skimr::skim()
-install.packages('janitor')
-install.packages('skimr')
+# install.packages('janitor')
+# install.packages('skimr')
 df3 <- janitor::clean_names(df3)
 ##################### RESOLUCAO NA'S ##############################
 df3 <- df3 |>

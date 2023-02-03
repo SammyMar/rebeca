@@ -6,19 +6,6 @@ df.agrup.completo <- df3
 df.agrup <- df3[,c('depressao','ansiedade','estresse')]
 dist.df <- df.agrup |> dist()
 df.agrup[,c('depressao','ansiedade','estresse')]  |> plot()
-######### hierarquicos ################################
-
-h.fit.WD <- hclust(dist.df,method ='ward.D')
-h.fit.WD2 <- hclust(dist.df,method ='ward.D2')
-h.fit.S <- hclust(dist.df,method ='single')
-h.fit.CO <- hclust(dist.df,method ='complete')
-h.fit.A <- hclust(dist.df,method ='average')
-h.fit.MC <- hclust(dist.df,method ='mcquitty')
-h.fit.ME <- hclust(dist.df,method ='median')
-h.fit.CE <- hclust(dist.df,method ='centroid')
-plot(cut(as.dendrogram(h.fit.WD), h = 20)$upper ,
-      main = "Ward - cortado em H = 20")
-agl_ward_res <- cutree(h.fit.WD , k = 3:5)
 
 ######### Teste quantidade de grupos no k-means ##################
 #install.packages('factoextra')
@@ -67,45 +54,55 @@ clara1 <- cluster :: clara(df.agrup ,
 clara2 <- cluster :: clara(df.agrup ,
                            k = 5,
                            samples = 10)
+###############################################
+################### HIERARQUICOS ###############
+library(ggdendro)
+grup.dist <- dist(df.agrup)
+agl_ward <- hclust(grup.dist,method = "ward.D2")
 
-df.agrup.completo <- k_medias1 |>
-  broom::augment(df.agrup.completo) |>
-  rename_at(vars(starts_with('.')), funs(paste0('kmedias5')))
-df.agrup.completo <- k_medias2 |>
-  broom::augment(df.agrup.completo) |>
-  rename_at(vars(starts_with('.')), funs(paste0('kmedias3')))
-df.agrup.completo <- pam1 |>
-  broom::augment(df.agrup.completo) |>
-  rename_at(vars(starts_with('.')), funs(paste0('pam3')))
-df.agrup.completo <- pam2 |>
-  broom::augment(df.agrup.completo) |>
-  rename_at(vars(starts_with('.')), funs(paste0('pam4')))
-df.agrup.completo <- pam3 |>
-  broom::augment(df.agrup.completo) |>
-  rename_at(vars(starts_with('.')), funs(paste0('pam5')))
-df.agrup.completo$clara3 <- clara1$clustering
-df.agrup.completo$clara5 <- clara2$clustering
-df.agrup.completo$kmedias5 <- k_medias1$cluster
-df.agrup.completo |>
-  group_by(kmedias5) |>
-  summarise_at(vars('depressao','ansiedade','estresse'),mean)
-df.agrup.completo |>
-  filter(kmedias5 == 4) |> ggplot()+
-  aes(cor) +
-  geom_bar()
-par(mfrow = c(3,2))
+ plot(cut(as.dendrogram (agl_ward), h = 20)$upper ,
+        main = "Ward - cortado em H = 20")
 
-df.agrup.completo |> ggplot()+
-    aes(anivel) +
-    geom_bar() #+ facet_wrap(vars(kmedias5))
+ agl_ward_res <- cutree(agl_ward , k = 3:5)
+################################################
+# agl_single <-
+#    hclust(grup.dist , method = "single")
+#
+#  plot(cut(as.dendrogram (agl_single), h = 4)$upper ,
+#          main = "Vizinho mais P r x i m o - cortado em H = 4",
+#          xlab = "")
+#   agl_single_res <- cutree(agl_single , k = 3:8)
+ #############################################
+agl_complete <-
+ hclust(grup.dist , method = "complete")
+
+plot(cut(as.dendrogram (agl_complete), h = 10)$upper ,
+main = "Vizinho mais Distante - cortado em H = 10")
+agl_complete_res <- cutree(agl_complete , k = 2:5)
+
+ ##############################################
+ ##############################################
+ df.agrup.completo <- k_medias1 |>
+   broom::augment(df.agrup.completo) |>
+   rename_at(vars(starts_with('.')), funs(paste0('kmedias5')))
+ df.agrup.completo <- k_medias2 |>
+   broom::augment(df.agrup.completo) |>
+   rename_at(vars(starts_with('.')), funs(paste0('kmedias3')))
+ df.agrup.completo <- pam1 |>
+   broom::augment(df.agrup.completo) |>
+   rename_at(vars(starts_with('.')), funs(paste0('pam3')))
+ df.agrup.completo <- pam2 |>
+   broom::augment(df.agrup.completo) |>
+   rename_at(vars(starts_with('.')), funs(paste0('pam4')))
+ df.agrup.completo <- pam3 |>
+   broom::augment(df.agrup.completo) |>
+   rename_at(vars(starts_with('.')), funs(paste0('pam5')))
+ df.agrup.completo$clara3 <- clara1$clustering
+ df.agrup.completo$clara5 <- clara2$clustering
+ df.agrup.completo$kmedias5 <- k_medias1$cluster
+############################################
+######## selecao melhor metodo #################
+df.agrup.completo |> head()
 df.agrup.completo |> colnames()
-install.packages('esquisser')
-df.agrup.completo |> esquisse::esquisser()
 
-library(ggplot2)
-df.agrup.completo |> colnames()
-ggplot(df.agrup.completo) +
- aes(x = trabalho) +
- geom_bar(fill = "#112446") +
- theme_minimal() +
- facet_wrap(vars(dnivel))
+#davies bouldin ##########
