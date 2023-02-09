@@ -132,7 +132,34 @@ df3 |>
   filter(is.na(mudanca_p_vix))
 
 
+############################## PLOTS ###############################
 
-# pkgbuild::check_build_tools(debug = TRUE)
-# install.packages('Rcpp')
-
+df3 |> colnames()
+variaveis <- c("id" , "periodo" ,"turno", "idade" , "genero" ,  "cor"  ,"deficiencia" ,  "trabalho" ,
+  "x1_curso",  "mudanca_p_vix"   ,  "vive" ,
+ "alcool_drogas"   ,  "frequencia",
+"quantidade"      ,  "depressao"   ,
+ "ansiedade"      ,   "estresse"  ,
+ "dnivel"        ,    "anivel"     ,
+ "enivel")
+g1 <- df3 |> ggplot() +
+  aes(x = periodo) +
+  geom_bar()
+g2 <- df3 |> ggplot() +
+  aes(x = turno) +
+  geom_bar()
+g3 <- df3 |> ggplot() +
+  aes(x = turno) +
+  geom_bar()
+g4 <-  df3 |> ggplot() +
+  aes(x = idade) +
+  geom_boxplot()
+g5 <-  df3 |> ggplot() +
+  aes(x = genero) +
+  geom_bar()
+g6 <- df3 |> ggplot() +
+  aes(x = cor) +
+  geom_bar()
+g7 <-  df3 |> ggplot() +
+  aes(x = trabalho) +
+  geom_bar()
