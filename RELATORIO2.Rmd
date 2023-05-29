@@ -1,0 +1,48 @@
+---
+title: "Análise de independência"
+author: "Samuel Medeiros"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introdução
+
+Bem como discutido no relatório anterior, obtivemos algumas hipóteses por meios não tão usuais de quais seriam as variáveis que mais interferam no nível de ansiedade, depressão e ansiedade dos alunos. 
+Tendo em vista novos conhecimentos, uma sugestão aqui a ser tratada será a avaliação da variável em estudo como uma variável categórica, não mais sendo: 1,2,...40, e sim passando a ser os níveis Fraco, Moderado, etc. conforme explicitado no primeiro relatório. Essa nova abordagem será utilizada para acrescentar mais na pesquisa aplicando métodos não paramétricos de independência entre as variáveis. 
+Inicialmente será apresentada uma análise descritiva seguida por esses testes onde eles serão melhor descritos.
+
+## Análise descritiva.
+
+Tendo em vista algumas demandas feitas quanto ao primeiro relatório, seguimos apresentando na Tabela 1, uma informação geral de frequência de todos os dados das variáveis aqui a serem trabalhadas. A variável idade foi trabalhada como faixa etária e as variávels Enível, Dnível e Anível se referem aos níveis de Estresse, Depressão e Ansiedade respectivamente
+
+```{r echo=FALSE}
+library(readr)
+install.packages('gtsummary',dependencies = T)
+library(gtsummary)
+library(dplyr)
+df <- read_csv("Dados_Agrupados.csv")
+df <- df %>% 
+  mutate(
+    `Faixa Etária` = case_when(
+      idade <= 20 ~ 'Até 20 anos',
+      idade > 20 & idade <31 ~ 'De 21 à 30 anos',
+      idade >30 & idade < 41 ~ 'De 31 à 40 anos',
+      idade >40 & idade < 51 ~ 'De 41 à 50 anos',
+      idade > 50 ~ 'Mais de 50 anos'
+    ) 
+  )
+colnames(df) <-df %>% rename(
+    `Àlcool/Drogas` = alcool_drogas,
+    `Freq. Consumo` = frequencia,
+    `Mudança para vix`= mudanca_p_vix,
+    `Vive em Vix`=vive,
+    `Qtd. de consumo` = quantidade
+  ) %>%  colnames() %>% stringr::str_to_title()
+df <- read_csv("Dados_Agrupados.csv")
+df %>% colnames()
+df %>% select(Periodo,Turno,`Faixa Etária`,Genero,Cor,Deficiencia,Trabalho,`Mudança Para Vix`,`Vive Em Vix`,`Àlcool/Drogas`,`Freq. Consumo`,`Qtd. De Consumo`,Dnivel,Enivel,Anivel) %>% 
+```
+
